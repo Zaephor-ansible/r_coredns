@@ -9,7 +9,7 @@
 }
 {% endif %}
 {% for entry in core_config %}
-{% if (core_domain != entry.domain) %}
+{% if core_domain|default(false) and 'domain' in entry and 'address' in entry and (core_domain != entry.domain) %}
 {{ entry.id }}:53 {
     errors
     forward . {{ entry.address | ipaddr('address') }}
