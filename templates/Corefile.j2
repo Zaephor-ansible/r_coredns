@@ -1,0 +1,19 @@
+. {
+    reload
+}
+{% if core_domain|default(false) and core_ext_dns|default(false) %}
+{{ core_domain }}:53 {
+    errors
+    forward . {{ core_ext_dns }}
+    cache 30
+}
+{% endif %}
+{% for entry in core_config %}
+{% if (core_domain != entry.domain) %}
+{{ entry.id }}:53 {
+    errors
+    forward . {{ entry.address | ipaddr('address') }}
+    cache 30
+}
+{% endif %}
+{% endfor %}

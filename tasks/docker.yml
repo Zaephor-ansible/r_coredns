@@ -1,0 +1,18 @@
+---
+- name: "{{ core_network }}: coredns container"
+  docker_container:
+    name: "coredns_{{ core_network }}"
+    state: started
+    image: coredns/coredns:1.8.0
+    restart_policy: unless-stopped
+    keep_volumes: no
+    comparisons:
+      '*': strict
+    ports:
+    - "{{ vars[ 'ansible_' + network ].ipv4.address }}:53:53/tcp"
+    - "{{ vars[ 'ansible_' + network ].ipv4.address }}:53:53/udp"
+    volumes:
+    - "/srv/config/coredns_{{ network }}:/config"
+    - "/srv/data/coredns_{{ network }}:/data"
+    command: >-
+      -conf /config/Corefile

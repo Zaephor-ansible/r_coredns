@@ -1,2 +1,4 @@
 ---
 # defaults file for r_coredns
+core_network: "{{ ansible_default_ipv4.interface }}"
+#core_domain: "{{ ansible_domain }}"
