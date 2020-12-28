@@ -9,10 +9,10 @@
     comparisons:
       '*': strict
     ports:
-    - "{{ vars[ 'ansible_' + network ].ipv4.address }}:53:53/tcp"
-    - "{{ vars[ 'ansible_' + network ].ipv4.address }}:53:53/udp"
+    - "{{ vars[ 'ansible_' + core_network ].ipv4.address }}:53:53/tcp"
+    - "{{ vars[ 'ansible_' + core_network ].ipv4.address }}:53:53/udp"
     volumes:
-    - "/srv/config/coredns_{{ network }}:/config"
-    - "/srv/data/coredns_{{ network }}:/data"
+    - "/srv/config/coredns_{{ core_network }}:/config"
+    - "/srv/data/coredns_{{ core_network }}:/data"
     command: >-
       -conf /config/Corefile
