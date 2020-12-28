@@ -9,8 +9,10 @@
 }
 {% endif %}
 {% for entry in core_config %}
-{% if core_domain|default(false) and 'domain' in entry and 'address' in entry and (core_domain != entry.domain) %}
-{{ entry.id }}:53 {
+# {{ entry | to_json }}
+{% if (core_domain|default(false)) and ('domain' in entry) and ('address' in entry) and (core_domain != entry.domain) %}
+# {{ entry.domain }}
+{{ entry.domain }}:53 {
     errors
     forward . {{ entry.address | ipaddr('address') }}
     cache 30
