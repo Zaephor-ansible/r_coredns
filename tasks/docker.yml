@@ -1,5 +1,6 @@
 ---
 - name: "{{ core_network }}: coredns container"
+  become: yes
   docker_container:
     name: "coredns_{{ core_network }}"
     state: started
