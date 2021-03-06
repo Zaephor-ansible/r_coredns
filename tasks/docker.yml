@@ -5,10 +5,16 @@
     name: "coredns_{{ core_network }}"
     state: started
     image: coredns/coredns:1.8.0
+    pull: yes
     restart_policy: unless-stopped
     keep_volumes: no
     comparisons:
-      '*': strict
+      image: strict
+      ports: strict
+      volumes: strict
+      env: strict
+      labels: strict
+      '*': ignore
     ports:
     - "{{ vars[ 'ansible_' + core_network ].ipv4.address }}:53:53/tcp"
     - "{{ vars[ 'ansible_' + core_network ].ipv4.address }}:53:53/udp"
